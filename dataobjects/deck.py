@@ -33,6 +33,17 @@ class Deck(object):
             for card_name, card_count in self.cards:
                 if card_count > 2 or card_count < 1:
                     errors.append('Invalid count of card "%s" : %d' % (card_name, card_count))
+        errors.extend(self.get_nerfed_deck_errors())
         # TODO add checking for legendary cards - only 1 per deck
         # TODO add checking for class cards - deck should have only class and common cards
+        return errors
+
+    def get_nerfed_deck_errors(self):
+        """
+        Check if this deck was invalidated by card nerfs and return those
+        :return: list of str
+        """
+        errors = []
+        if 'Warsong Commander' in self.cards and ('Grim Patron' in self.cards or 'Frothing Berserker' in self.cards):
+            errors.append('Patron-Warsong and Berserker-Warsong combos no longer valid by Warsong commander nerf')
         return errors
