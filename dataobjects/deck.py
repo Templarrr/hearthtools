@@ -47,3 +47,21 @@ class Deck(object):
         if 'Warsong Commander' in self.cards and ('Grim Patron' in self.cards or 'Frothing Berserker' in self.cards):
             errors.append('Patron-Warsong and Berserker-Warsong combos no longer valid by Warsong commander nerf')
         return errors
+
+    def get_arena_advice(self):
+        # todo
+        pass
+
+    def get_constructed_advice(self):
+        # todo
+        pass
+
+    def get_advice(self):
+        if self.type == constants.CONSTRUCTED_DECK:
+            self.get_constructed_advice()
+        else:
+            self.get_arena_advice()
+
+    def get_total_synergy_score(self):
+        # todo
+        pass
