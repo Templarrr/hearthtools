@@ -8,12 +8,13 @@ def get_all_cards_data():
     cards_final_info = []
     cards_raw_info = requests.get(config.MASHAPE_API_URL + 'cards?collectible=1',
                                   headers={'X-Mashape-Key': config.MASHAPE_API_KEY}).json()
-    for raw_card in cards_raw_info:
-        card = Card()
-        card.fill_from_dict(raw_card)
-        if card.type in ['Spell', 'Minion', 'Weapon']:
-            cards_final_info.append(card.get_dict())
-    print json.dumps(cards_final_info)
+    for card_set in cards_raw_info:
+        for raw_card in cards_raw_info[card_set]:
+            card = Card()
+            card.fill_from_dict(raw_card)
+            if card.type in ['Spell', 'Minion', 'Weapon']:
+                cards_final_info.append(card)
+    return cards_final_info
 
 
 def get_all_card_fields():

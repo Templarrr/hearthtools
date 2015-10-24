@@ -28,7 +28,7 @@ class Card(object):
     def fill_from_dict(self, data):
         for key in data:
             if key in self.__dict__:
-                self.__dict__[key] = data[dict]
+                self.__dict__[key] = data[key]
 
     def get_dict(self):
         return self.__dict__

@@ -1,3 +1,6 @@
+from api_tools.tools import get_all_cards_data
+
+
 class Collection(object):
     def __init__(self):
         self.cards = {}
@@ -17,13 +20,14 @@ class Collection(object):
         # todo
         pass
 
-    def get_all_cards_in_game(self):
-        # todo
-        pass
-
     def fill_collection_manual(self):
-        all_cards = self.get_all_cards_in_game()
+        all_cards = get_all_cards_data()
         for card in all_cards:
             amount = int(input("(%s):" % card.name))
             if amount > 0 and amount < 3:
                 self.cards[card.name] = amount
+
+    def fill_collection_empty(self):
+        all_cards = get_all_cards_data()
+        for card in all_cards:
+            self.cards[card.name] = 0
