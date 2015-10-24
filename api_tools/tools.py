@@ -48,3 +48,14 @@ def get_all_elite_Cards():
             if 'elite' in card and card['elite']:
                 cards.append(card)
     return cards
+
+
+def get_card_set_stats(collection_cards):
+    all_cards = get_all_cards_data()
+    stats = {}
+    for card in all_cards:
+        if card.cardSet not in stats:
+            stats[card.cardSet] = {'Legendary': [0, 0, 0], 'Epic': [0, 0, 0], 'Rare': [0, 0, 0], 'Common': [0, 0, 0],
+                                   'Free': [0, 0, 0]}
+        stats[card.cardSet][card.rarity][collection_cards[card.name]] += 1
+    return stats
