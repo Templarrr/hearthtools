@@ -50,7 +50,7 @@ for player_class in player_classes:
     probability = OrderedDict(sorted(probability.items(), key=lambda t: t[1], reverse=True))
     to_break = False
     for card in probability:
-        if my_col[card]<2 and card != 'Dr. Boom' and card != 'Grommash Hellscream':
+        if my_col[card]<2 and card != 'Dr. Boom' and card != 'Grommash Hellscream' and card != 'Loatheb':
             print "Best card for class %s to craft is : %s (%f)" % (player_class, card, probability[card])
             if to_break:
                 break
