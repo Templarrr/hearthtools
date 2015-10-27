@@ -59,3 +59,12 @@ def get_card_set_stats(collection_cards):
                                    'Free': [0, 0, 0]}
         stats[card.cardSet][card.rarity][collection_cards[card.name]] += 1
     return stats
+
+
+def get_all_legendaries():
+    cards = get_all_cards_data()
+    legendaries = []
+    for card in cards:
+        if card.rarity == 'Legendary':
+            legendaries.append(str(card.name))
+    return legendaries

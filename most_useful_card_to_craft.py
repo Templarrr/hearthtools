@@ -1,4 +1,4 @@
-from dataobjects.constants import player_classes
+from dataobjects.constants import player_classes, legendaries
 from dataobjects.collection import Collection
 from data.my_collection import cards as my_col
 from collections import OrderedDict
@@ -50,7 +50,7 @@ for player_class in player_classes:
     probability = OrderedDict(sorted(probability.items(), key=lambda t: t[1], reverse=True))
     to_break = False
     for card in probability:
-        if my_col[card]<2 and card != 'Dr. Boom' and card != 'Grommash Hellscream' and card != 'Loatheb':
+        if (my_col[card]<2 and card not in legendaries) or (my_col[card]<1 and card in legendaries):
             print "Best card for class %s to craft is : %s (%f)" % (player_class, card, probability[card])
             if to_break:
                 break

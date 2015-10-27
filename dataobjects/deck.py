@@ -1,5 +1,5 @@
 import constants
-
+from dataobjects.constants import legendaries
 
 class Deck(object):
     """
@@ -33,8 +33,9 @@ class Deck(object):
             for card_name, card_count in self.cards:
                 if card_count > 2 or card_count < 1:
                     errors.append('Invalid count of card "%s" : %d' % (card_name, card_count))
+                if card_count > 1 and card_name in legendaries:
+                    errors.append('You cannot have more then 1 legendary card "%s" in deck' % card_name)
         errors.extend(self.get_nerfed_deck_errors())
-        # TODO add checking for legendary cards - only 1 per deck
         # TODO add checking for class cards - deck should have only class and common cards
         return errors
 
