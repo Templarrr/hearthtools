@@ -1,7 +1,6 @@
 import config
 import requests
 from dataobjects.card import Card
-import json
 
 
 def get_all_cards_data():
@@ -68,3 +67,21 @@ def get_all_legendaries():
         if card.rarity == 'Legendary':
             legendaries.append(str(card.name))
     return legendaries
+
+
+def get_class_cards(player_class):
+    cards = get_all_cards_data()
+    class_cards = []
+    for card in cards:
+        if card.playerClass == player_class:
+            class_cards.append(card.name)
+    return class_cards
+
+
+def get_cards_for_all_classes():
+    player_classes = ['Warrior', 'Rogue', 'Priest', 'Warlock', 'Paladin', 'Hunter', 'Druid', 'Mage', 'Shaman', 'Neutral']
+    cards = get_all_cards_data()
+    cards_per_class = {player_class:[] for player_class in player_classes}
+    for card in cards:
+        cards_per_class[card.playerClass].append(card.name)
+    return cards_per_class
