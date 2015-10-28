@@ -27,4 +27,6 @@ for card_set in card_sets_available_in_store:
             # we don't need 2nd copy of legendaries, as we only can use 1
             amortized_booster_dust_cost += 5 * dust_cost_to_craft[rarity] * probabilities_in_booster[rarity] * (stats[card_set][rarity][0]) / (
                 stats[card_set][rarity][0] + stats[card_set][rarity][1] + stats[card_set][rarity][2])
+        print "0 copies of cards: %s" % str(stats[card_set][rarity][3])
+        print "1 copy of cards: %s" % str(stats[card_set][rarity][4])
     print 'Amortized dust cost of new cards and second copies in booster %f' % amortized_booster_dust_cost

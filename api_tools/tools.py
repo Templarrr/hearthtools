@@ -54,9 +54,15 @@ def get_card_set_stats(collection_cards):
     stats = {}
     for card in all_cards:
         if card.cardSet not in stats:
-            stats[card.cardSet] = {'Legendary': [0, 0, 0], 'Epic': [0, 0, 0], 'Rare': [0, 0, 0], 'Common': [0, 0, 0],
-                                   'Free': [0, 0, 0]}
+            stats[card.cardSet] = {
+                'Legendary': [0, 0, 0, [], []],
+                'Epic': [0, 0, 0, [], []],
+                'Rare': [0, 0, 0, [], []],
+                'Common': [0, 0, 0, [], []],
+                'Free': [0, 0, 0, [], []]}
         stats[card.cardSet][card.rarity][collection_cards[card.name]] += 1
+        if collection_cards[card.name] != 2:
+            stats[card.cardSet][card.rarity][collection_cards[card.name] + 3].append(card.name)
     return stats
 
 
@@ -85,3 +91,8 @@ def get_cards_for_all_classes():
     for card in cards:
         cards_per_class[card.playerClass].append(card.name)
     return cards_per_class
+
+
+def get_all_cards_names():
+    cards = get_all_cards_data()
+    return [card.name for card in cards]

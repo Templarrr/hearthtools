@@ -1,4 +1,4 @@
-from api_tools.tools import get_all_legendaries, get_all_cards_data
+from api_tools.tools import get_all_legendaries, get_cards_for_all_classes, get_all_cards_names
 
 card_types = ['Hero', 'Enchantment', 'Hero Power', 'Weapon', 'Spell', 'Minion']
 card_types_in_collection = ['Weapon', 'Spell', 'Minion']
@@ -14,4 +14,5 @@ player_classes = ['Warrior', 'Rogue', 'Priest', 'Warlock', 'Paladin', 'Hunter', 
 CONSTRUCTED_DECK = 'constructed'
 ARENA_DECK = 'arena'
 legendaries = get_all_legendaries()
-class_cards = get_all_cards_data()
+class_cards = get_cards_for_all_classes()
+all_cards = get_all_cards_names()
