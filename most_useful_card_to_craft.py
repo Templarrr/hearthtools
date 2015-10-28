@@ -16,37 +16,12 @@ for player_class in player_classes:
     for card1 in my_col:
         if my_col[card1] == 0:
             continue
-        # !!! why use incorrect name??? :(
-        if card1 == "Ship's Cannon":
-            card1_ = "Ship Cannon"
-        elif card1 == 'Hemet Nesingwary':
-            card1_ = 'Hemit Nesingwary'
-        elif card1 == 'Bouncing Blade':
-            card1_ = 'Bouncing Blades'
-        elif card1 == 'Steamwheedle Sniper':
-            card1_ = 'Staemwheedle Sniper'
-        elif card1 == "Ancestor's Call":
-            card1_ = 'Ancestors Call'
-        else:
-            card1_ = card1
 
-        if card1_ in class_deck_combo:
-            for card2 in class_deck_combo[card1_]:
+        if card1 in class_deck_combo:
+            for card2 in class_deck_combo[card1]:
                 if card2 == 'used_in_decks':
                     continue
-                if card2 == "Ship Cannon":
-                    card2_ = "Ship's Cannon"
-                elif card2 == 'Hemit Nesingwary':
-                    card2_ = 'Hemet Nesingwary'
-                elif card2 == 'Bouncing Blades':
-                    card2_ = 'Bouncing Blade'
-                elif card2 == 'Staemwheedle Sniper':
-                    card2_ = 'Steamwheedle Sniper'
-                elif card2 == "Ancestors Call":
-                    card2_ = "Ancestor's Call"
-                else:
-                    card2_ = card2
-                probability[card2_] += class_deck_combo[card1_][card2] * my_col[card1]
+                probability[card2] += class_deck_combo[card1][card2] * my_col[card1]
     probability = OrderedDict(sorted(probability.items(), key=lambda t: t[1], reverse=True))
     to_break = False
     for card in probability:

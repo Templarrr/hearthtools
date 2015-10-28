@@ -30,7 +30,7 @@ class Deck(object):
         if sum(self.cards.values()) != 30:
             errors.append('Deck should contain 30 cards, this deck contain %d' % sum(self.cards.values()))
         if self.type != constants.ARENA_DECK:
-            for card_name, card_count in self.cards:
+            for card_name, card_count in self.cards.iteritems():
                 if card_count > 2 or card_count < 1:
                     errors.append('Invalid count of card "%s" : %d' % (card_name, card_count))
                 if card_count > 1 and card_name in legendaries:

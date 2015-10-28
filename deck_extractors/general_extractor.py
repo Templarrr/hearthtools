@@ -8,7 +8,7 @@ class AbstractExtractor(object):
     def get_decks_list(self):
         raise NotImplementedError
 
-    def get_deck_cards_and_class(self, decks_source):
+    def get_deck(self, decks_source):
         raise NotImplementedError
 
     def save_decks_results(self, results):
@@ -19,8 +19,11 @@ class AbstractExtractor(object):
         result = {}
         decks_sources = self.get_decks_list()
         for decks_source in decks_sources:
-            cards, player_class = self.get_deck_cards_and_class(decks_source)
-            if player_class not in result:
-                result[player_class] = []
-            result[player_class].append(cards)
+            deck = self.get_deck(decks_source)
+            if not deck.is_valid():
+                print 'Errors: %s' % str(deck.get_errors())
+                continue
+            if deck.player_class not in result:
+                result[deck.player_class] = []
+            result[deck.player_class].append(deck.cards)
         self.save_decks_results(result)
