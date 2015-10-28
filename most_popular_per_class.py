@@ -1,11 +1,11 @@
 import json
 from collections import OrderedDict
 
-input_decks_file = 'tempostorm_decks.json'
+input_decks_file = 'data/tempostorm_decks.json'
 with open(input_decks_file, 'r') as f:
     decks = json.load(f)
 
-output_file = 'cards_popularity_per_class.json'
+output_file = 'data/cards_popularity_per_class.json'
 result = {'Total':{}}
 for player_class in decks:
     result[player_class] = {}
@@ -49,8 +49,8 @@ for player_class in usability_matrix:
     for card1 in usability_matrix[player_class]:
         for card2 in usability_matrix[player_class][card1]:
             if card2 != 'used_in_decks':
-                usability_matrix[player_class][card1][card2] /= float(usability_matrix[player_class][card1]['used_in_decks'])
+                usability_matrix[player_class][card1][card2] /= (float(usability_matrix[player_class][card2]['used_in_decks']) + float(usability_matrix[player_class][card1]['used_in_decks']))
 
 for player_class in usability_matrix:
-    with open(player_class+'.json', 'w') as f:
+    with open('data/' + player_class+'.json', 'w') as f:
         json.dump(usability_matrix[player_class], f)
