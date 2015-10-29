@@ -49,7 +49,9 @@ for player_class in usability_matrix:
     for card1 in usability_matrix[player_class]:
         for card2 in usability_matrix[player_class][card1]:
             if card2 != 'used_in_decks':
-                usability_matrix[player_class][card1][card2] /= (float(usability_matrix[player_class][card2]['used_in_decks']) + float(usability_matrix[player_class][card1]['used_in_decks']))
+                usability_matrix[player_class][card1][card2] /= (float(usability_matrix[player_class][card2]['used_in_decks']) +
+                                                                 float(usability_matrix[player_class][card1]['used_in_decks']) -
+                                                                 usability_matrix[player_class][card1][card2])
 
 for player_class in usability_matrix:
     with open('data/' + player_class+'.json', 'w') as f:
