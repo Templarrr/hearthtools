@@ -2,6 +2,10 @@ import json
 from collections import OrderedDict
 from data.my_collection import cards as my_col
 from dataobjects.constants import legendaries
+from dataobjects.collection import Collection
+
+my_col_object = Collection()
+my_col_object.cards = my_col
 
 player_class = raw_input('Input your class: ')
 input_file = 'data/' + player_class + '.json'
@@ -12,7 +16,7 @@ with open(input_file, 'r') as f:
 with open(popular_file, 'r') as f:
     popular_cards = json.load(f)
 
-start_card = raw_input('First card in deck? ')
+start_card = my_col_object.get_closest_name(raw_input('First card in deck? '))
 
 deck = {start_card: 1}
 probability = class_deck_combo[start_card].copy()
@@ -73,4 +77,5 @@ while sum(deck.values()) < 30:
 #         probability[some_card] += class_deck_combo[next_card][some_card]
 
 print('Final deck:')
-print(json.dumps(deck))
+for card in deck:
+    print "%s : %d" % (card, deck[card])
