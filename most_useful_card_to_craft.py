@@ -23,10 +23,12 @@ for player_class in player_classes:
                     continue
                 probability[card2] += class_deck_combo[card1][card2] * my_col[card1]
     probability = OrderedDict(sorted(probability.items(), key=lambda t: t[1], reverse=True))
-    to_break = False
+
+    show_limit = 5
+    cards_to_show = []
     for card in probability:
         if (my_col[card]<2 and card not in legendaries) or (my_col[card]<1 and card in legendaries):
-            print "Best card for class %s to craft is : %s (%f)" % (player_class, card, probability[card])
-            if to_break:
+            cards_to_show.append('%s: %s' % (card, str(probability[card])))
+            if len(cards_to_show)>=show_limit:
                 break
-            to_break = True
+    print "Best cards for class %s to craft is : %s" % (player_class, str(cards_to_show))
