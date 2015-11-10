@@ -1,18 +1,25 @@
 import config
 import requests
 from dataobjects.card import Card
+import os
+import json
 
 
 def get_all_cards_data():
+    cached_flie = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data', 'all_cards.json'))
+    if os.path.exists(cached_flie):
+        with open(cached_flie) as f:
+            return [Card(card_info) for card_info in json.load(f)]
     cards_final_info = []
     cards_raw_info = requests.get(config.MASHAPE_API_URL + 'cards?collectible=1',
                                   headers={'X-Mashape-Key': config.MASHAPE_API_KEY}).json()
     for card_set in cards_raw_info:
         for raw_card in cards_raw_info[card_set]:
-            card = Card()
-            card.fill_from_dict(raw_card)
+            card = Card(raw_card)
             if card.type in ['Spell', 'Minion', 'Weapon']:
                 cards_final_info.append(card)
+    with open(cached_flie, 'w+') as f:
+        json.dump([card.__dict__ for card in cards_final_info], f)
     return cards_final_info
 
 
@@ -85,9 +92,10 @@ def get_class_cards(player_class):
 
 
 def get_cards_for_all_classes():
-    player_classes = ['Warrior', 'Rogue', 'Priest', 'Warlock', 'Paladin', 'Hunter', 'Druid', 'Mage', 'Shaman', 'Neutral']
+    player_classes = ['Warrior', 'Rogue', 'Priest', 'Warlock', 'Paladin', 'Hunter', 'Druid', 'Mage', 'Shaman',
+                      'Neutral']
     cards = get_all_cards_data()
-    cards_per_class = {player_class:[] for player_class in player_classes}
+    cards_per_class = {player_class: [] for player_class in player_classes}
     for card in cards:
         cards_per_class[card.playerClass].append(card.name)
     return cards_per_class

@@ -1,5 +1,5 @@
 class Card(object):
-    def __init__(self):
+    def __init__(self, prefilled_data=None):
         self.cardId = ''
         self.name = ''
         self.cardSet = ''
@@ -24,6 +24,8 @@ class Card(object):
         self.imgGold = ''
         self.locale = 'enUS'
         self.mechanics = []
+        if prefilled_data is not None:
+            self.fill_from_dict(prefilled_data)
 
     def fill_from_dict(self, data):
         for key in data:
