@@ -3,6 +3,7 @@ from collections import OrderedDict
 from data.my_collection import cards as my_col
 from dataobjects.constants import legendaries
 from dataobjects.collection import Collection
+from dataobjects.deck import Deck
 
 my_col_object = Collection()
 my_col_object.cards = my_col
@@ -76,6 +77,11 @@ while sum(deck.values()) < 30:
 #     for some_card in probability:
 #         probability[some_card] += class_deck_combo[next_card][some_card]
 
+deck_object = Deck()
+deck_object.cards = deck
+if raw_input("Refine? (y/n)") == 'y':
+    deck_object.refine_deck(class_deck_combo, my_col)
+
 print('Final deck:')
-for card in deck:
+for card in deck_object.cards:
     print "%s : %d" % (card, deck[card])
