@@ -701,7 +701,7 @@ cards = {
     "Vanish": 2,
     "Vaporize": 0,
     "Varian Wrynn": 0,
-    "Velen's Chosen": 0,
+    "Velen's Chosen": 2,
     "Venture Co. Mercenary": 1,
     "Violet Teacher": 1,
     "Vitality Totem": 2,
