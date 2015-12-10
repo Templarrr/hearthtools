@@ -38,6 +38,7 @@ class Deck(object):
                 if card_count > 1 and card_name in legendaries:
                     errors.append('You cannot have more then 1 legendary card "%s" in deck' % card_name)
         errors.extend(self.get_nerfed_deck_errors())
+        errors.extend(self.get_jokers_errors())
         # TODO add checking for class cards - deck should have only class and common cards
         return errors
 
@@ -49,6 +50,16 @@ class Deck(object):
         errors = []
         if 'Warsong Commander' in self.cards and ('Grim Patron' in self.cards or 'Frothing Berserker' in self.cards):
             errors.append('Patron-Warsong and Berserker-Warsong combos no longer valid by Warsong commander nerf')
+        return errors
+
+    def get_jokers_errors(self):
+        """
+        Filter out "joke" decks
+        :return:
+        """
+        errors = []
+        if self.player_class in ['Mage', 'Warlock', 'Priest', 'Druid'] and 'Dread Corsair' in self.cards:
+            errors.append('Haha, Dread Corsair in class without weapons, very funny')
         return errors
 
     def get_arena_advice(self):
