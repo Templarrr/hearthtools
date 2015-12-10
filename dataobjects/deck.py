@@ -1,5 +1,5 @@
 import constants
-from dataobjects.constants import legendaries
+from dataobjects.constants import legendaries, class_cards
 from collections import OrderedDict
 
 
@@ -27,6 +27,8 @@ class Deck(object):
         :return: list of str
         """
         errors = []
+        allowed_cards = class_cards['Neutral'][:]
+        allowed_cards.extend(class_cards[self.player_class])
         if self.player_class not in constants.player_classes:
             errors.append('Invalid class %s' % self.player_class)
         if sum(self.cards.values()) != 30:
@@ -37,9 +39,10 @@ class Deck(object):
                     errors.append('Invalid count of card "%s" : %d' % (card_name, card_count))
                 if card_count > 1 and card_name in legendaries:
                     errors.append('You cannot have more then 1 legendary card "%s" in deck' % card_name)
+                if card_name not in allowed_cards:
+                    errors.append('Card "%s" is not allowed - you can use only neutral or class cards' % card_name)
         errors.extend(self.get_nerfed_deck_errors())
         errors.extend(self.get_jokers_errors())
-        # TODO add checking for class cards - deck should have only class and common cards
         return errors
 
     def get_nerfed_deck_errors(self):
