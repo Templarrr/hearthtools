@@ -58,8 +58,19 @@ class Deck(object):
         :return:
         """
         errors = []
-        if self.player_class in ['Mage', 'Warlock', 'Priest', 'Druid'] and 'Dread Corsair' in self.cards:
-            errors.append('Haha, Dread Corsair in class without weapons, very funny')
+        weapon_synergy_cards = [
+            'Bloodsail Corsair',
+            'Southsea Deckhand',
+            'Orgrimmar Aspirant',
+            'Goblin Auto-Barber',
+            'Spiteful Smith',
+            'Buccaneer',
+            'Captain Greenskin',
+            'Dread Corsair'
+        ]
+        for weapon_synergy_card in weapon_synergy_cards:
+            if self.player_class in ['Mage', 'Warlock', 'Priest', 'Druid'] and weapon_synergy_card in self.cards:
+                errors.append('Haha, %s in class without weapons, very funny' % weapon_synergy_card)
         return errors
 
     def get_arena_advice(self):
