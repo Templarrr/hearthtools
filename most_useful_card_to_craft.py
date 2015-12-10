@@ -1,6 +1,7 @@
 from dataobjects.constants import player_classes, legendaries
 from dataobjects.collection import Collection
-from data.my_collection import cards as my_col
+# from data.my_collection import cards as my_col
+from data.nastya_collection import cards as my_col
 from collections import OrderedDict
 import json
 
