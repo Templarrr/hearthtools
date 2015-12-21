@@ -1,5 +1,5 @@
-# from data.my_collection import cards
-from data.nastya_collection import cards
+from data.my_collection import cards
+# from data.nastya_collection import cards
 from api_tools.tools import get_card_set_stats
 from dataobjects.constants import card_sets_available_in_store, card_rarities, probabilities_in_booster, dust_cost_to_craft, dust_cost_to_sell
 
