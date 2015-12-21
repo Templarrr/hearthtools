@@ -1,7 +1,7 @@
 import json
 from collections import OrderedDict
-# from data.my_collection import cards as my_col
-from data.nastya_collection import cards as my_col
+from data.my_collection import cards as my_col
+# from data.nastya_collection import cards as my_col
 from dataobjects.constants import legendaries
 from dataobjects.collection import Collection
 from dataobjects.deck import Deck
