@@ -353,7 +353,7 @@ cards = {
     "Illuminator": 2,
     "Imp Gang Boss": 2,
     "Imp Master": 1,
-    "Imp-losion": 1,
+    "Imp-losion": 2,
     "Injured Blademaster": 1,
     "Injured Kvaldir": 2,
     "Inner Fire": 2,
