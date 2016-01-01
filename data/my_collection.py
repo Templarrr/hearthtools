@@ -563,7 +563,7 @@ cards = {
     "Savagery": 2,
     "Savannah Highmane": 2,
     "Scarlet Crusader": 2,
-    "Scarlet Purifier": 0,
+    "Scarlet Purifier": 1,
     "Scavenging Hyena": 2,
     "Screwjank Clunker": 1,
     "Sea Giant": 0,
