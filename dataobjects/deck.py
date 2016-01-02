@@ -1,5 +1,8 @@
+import json
+
 import constants
 from dataobjects.constants import legendaries, class_cards
+from dataobjects.collection import Collection
 from collections import OrderedDict
 
 
@@ -7,16 +10,29 @@ class Deck(object):
     """
     Class for storing information about Hearthstone deck
     """
+    _class_deck_combo = None
 
-    def __init__(self):
+    def __init__(self, my_col=None):
         self.player_class = ''
         self.name = 'Noname deck'
         self.type = constants.CONSTRUCTED_DECK
         self.cards = {}
+        if my_col:
+            self.my_col = my_col
+        else:
+            self.my_col = {}
+
+    @property
+    def class_deck_combo(self):
+        if not self._class_deck_combo:
+            input_file = 'data/' + self.player_class + '.json'
+            with open(input_file, 'r') as f:
+                self._class_deck_combo = json.load(f)
+        return self._class_deck_combo
 
     def is_valid(self):
         """
-        is this Deck valid to use in Heartstone?
+        is this Deck valid to use in Hearthstone?
         :return: bool
         """
         return len(self.get_errors()) == 0
@@ -77,18 +93,50 @@ class Deck(object):
         return errors
 
     def get_arena_advice(self):
-        # todo
-        pass
+        real_col = self.my_col
+        my_col_object = Collection()
+        my_col_object.cards = real_col
+        temp_col = {}
+        for i in range(1,4):
+            card_option = my_col_object.get_closest_name(raw_input('Card to choose #%d: ' % i))
+            temp_col[card_option] = 30
+        self.my_col = temp_col
+        card_to_add, card_syn_value = self.get_constructed_advice()
+        self.my_col = real_col
+        return card_to_add, card_syn_value
 
     def get_constructed_advice(self):
-        # todo
-        pass
+        synergy_array = self.get_deck_synergy_array()
+        synergy_array = OrderedDict(sorted(synergy_array.items(), key=lambda t: t[1], reverse=True))
+        # find maximal synergy card outside deck
+        card_to_add = ''
+        card_syn_value = 0
+        for card in synergy_array:
+            if card != 'used_in_decks':
+                if card in self.my_col and self.my_col[card] > 0 and (
+                                card not in self.cards or self.cards[card] < self.my_col[card]):
+                    card_to_add = card
+                    card_syn_value = synergy_array[card_to_add]
+                    break
+        return card_to_add, card_syn_value
+
+    def get_worst_card(self):
+        card_to_remove = ''
+        ctr_syn = 30
+        for card in self.cards:
+            self.remove_card(card)
+            synergy_array = self.get_deck_synergy_array()
+            if synergy_array[card] < ctr_syn:
+                card_to_remove = card
+                ctr_syn = synergy_array[card]
+            self.add_card(card)
+        return card_to_remove, ctr_syn
 
     def get_advice(self):
         if self.type == constants.CONSTRUCTED_DECK:
-            self.get_constructed_advice()
+            return self.get_constructed_advice()
         else:
-            self.get_arena_advice()
+            return self.get_arena_advice()
 
     def get_total_synergy_score(self):
         # todo
@@ -108,15 +156,15 @@ class Deck(object):
             if self.cards[card_name] == 0:
                 del self.cards[card_name]
 
-    def get_deck_synergy_array(self, class_deck_combo):
-        synergy_array = {card_name: 0 for card_name in class_deck_combo.keys()}
+    def get_deck_synergy_array(self):
+        synergy_array = {card_name: 0 for card_name in self.class_deck_combo.keys()}
         for card in self.cards:
-            for card2 in class_deck_combo:
+            for card2 in self.class_deck_combo:
                 if card2 != 'used_in_decks':
-                    synergy_array[card2] += class_deck_combo[card][card2] * self.cards[card]
+                    synergy_array[card2] += self.class_deck_combo[card][card2] * self.cards[card]
         return synergy_array
 
-    def refine_deck(self, class_deck_combo, my_col, max_iteration=30):
+    def refine_deck(self, max_iteration=30):
         """
         iteratively improve deck by removing card from lowest synergy cost and adding card with highest
         as long as it's bigger, not the same card and max iteration limit not reached
@@ -125,29 +173,10 @@ class Deck(object):
         iteration_counter = 0
         while iteration_counter <= max_iteration:
             # find card to remove
-            card_to_remove = ''
-            ctr_syn = 30
-            for card in self.cards:
-                self.remove_card(card)
-                synergy_array = self.get_deck_synergy_array(class_deck_combo)
-                if synergy_array[card] < ctr_syn:
-                    card_to_remove = card
-                    ctr_syn = synergy_array[card]
-                self.add_card(card)
+            card_to_remove, ctr_syn = self.get_worst_card()
             # calculating synergy cost
             self.remove_card(card_to_remove)
-            synergy_array = self.get_deck_synergy_array(class_deck_combo)
-            synergy_array = OrderedDict(sorted(synergy_array.items(), key=lambda t: t[1], reverse=True))
-            # find maximal synergy card outside deck
-            card_to_add = ''
-            cta_syn = 0
-            for card in synergy_array:
-                if card != 'used_in_decks':
-                    if card in my_col and my_col[card] > 0 and (
-                                    card not in self.cards or self.cards[card] < my_col[card]):
-                        card_to_add = card
-                        cta_syn = synergy_array[card]
-                        break
+            card_to_add, cta_syn = self.get_constructed_advice()
             # checking constrains
             print "Card to add: %s : %f" % (card_to_add, cta_syn)
             print "Card to remove: %s : %f" % (card_to_remove, ctr_syn)
