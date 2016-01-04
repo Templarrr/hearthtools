@@ -48,7 +48,7 @@ cards = {
     "Argent Lance": 2,
     "Argent Protector": 2,
     "Argent Squire": 2,
-    "Argent Watchman": 1,
+    "Argent Watchman": 2,
     "Armored Warhorse": 2,
     "Armorsmith": 2,
     "Assassin's Blade": 2,
