@@ -143,7 +143,7 @@ cards = {
     "Core Hound": 2,
     "Core Rager": 2,
     "Corruption": 2,
-    "Counterspell": 1,
+    "Counterspell": 2,
     "Crackle": 2,
     "Crazed Alchemist": 2,
     "Crowd Favorite": 0,
