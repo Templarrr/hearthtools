@@ -386,7 +386,7 @@ cards = {
     "Knife Juggler": 2,
     "Knight of the Wild": 2,
     "Kobold Geomancer": 2,
-    "Kodorider": 1,
+    "Kodorider": 2,
     "Kor'kron Elite": 2,
     "Kvaldir Raider": 2,
     "Lance Carrier": 2,
