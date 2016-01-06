@@ -653,7 +653,7 @@ cards = {
     "Swipe": 2,
     "Sword of Justice": 2,
     "Sylvanas Windrunner": 0,
-    "Target Dummy": 1,
+    "Target Dummy": 2,
     "Tauren Warrior": 2,
     "Temple Enforcer": 2,
     "The Beast": 0,
