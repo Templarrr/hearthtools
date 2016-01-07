@@ -184,7 +184,7 @@ cards = {
     "Divine Spirit": 2,
     "Djinni of Zephyrs": 2,
     "Doomguard": 1,
-    "Doomhammer": 1,
+    "Doomhammer": 2,
     "Doomsayer": 1,
     "Dr. Boom": 1,
     "Draenei Totemcarver": 2,
