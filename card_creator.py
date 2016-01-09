@@ -18,8 +18,8 @@ if is_arena_deck:
     deck.type = constants.ARENA_DECK
 
 while sum(deck.cards.values()) < 30:
-    next_card, card_syn_value = deck.get_advice()
-    print 'Adding %s : %f' % (next_card, card_syn_value)
+    next_card, card_syn_value, better_cards = deck.get_advice()
+    print 'Adding %s : %f (skipped missing cards: %s)' % (next_card, card_syn_value, str(better_cards))
     deck.add_card(next_card)
 
 if raw_input("Refine? (y/n)") == 'y':
@@ -28,3 +28,4 @@ if raw_input("Refine? (y/n)") == 'y':
 print('Final deck:')
 for card in deck.cards:
     print "%s : %d" % (card, deck.cards[card])
+print('Synergy score: %f' % deck.get_total_synergy_score())

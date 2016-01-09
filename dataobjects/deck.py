@@ -97,13 +97,13 @@ class Deck(object):
         my_col_object = Collection()
         my_col_object.cards = real_col
         temp_col = {}
-        for i in range(1,4):
+        for i in range(1, 4):
             card_option = my_col_object.get_closest_name(raw_input('Card to choose #%d: ' % i))
             temp_col[card_option] = 30
         self.my_col = temp_col
-        card_to_add, card_syn_value = self.get_constructed_advice()
+        card_to_add, card_syn_value, _ = self.get_constructed_advice()
         self.my_col = real_col
-        return card_to_add, card_syn_value
+        return card_to_add, card_syn_value, []
 
     def get_constructed_advice(self):
         synergy_array = self.get_deck_synergy_array()
@@ -111,6 +111,7 @@ class Deck(object):
         # find maximal synergy card outside deck
         card_to_add = ''
         card_syn_value = 0
+        better_cards = []
         for card in synergy_array:
             if card != 'used_in_decks':
                 if card in self.my_col and self.my_col[card] > 0 and (
@@ -118,7 +119,10 @@ class Deck(object):
                     card_to_add = card
                     card_syn_value = synergy_array[card_to_add]
                     break
-        return card_to_add, card_syn_value
+                elif (card in legendaries and self.my_col[card] == 0) or (
+                        card not in legendaries and self.my_col[card] == 1):
+                    better_cards.append(card)
+        return card_to_add, card_syn_value, better_cards
 
     def get_worst_card(self):
         card_to_remove = ''
@@ -139,8 +143,12 @@ class Deck(object):
             return self.get_arena_advice()
 
     def get_total_synergy_score(self):
-        # todo
-        pass
+        synergy_array = self.get_deck_synergy_array()
+        total_synergy_cost = 0
+        for card in self.cards:
+            if card in synergy_array:
+                total_synergy_cost += self.cards[card] * synergy_array[card]
+        return total_synergy_cost
 
     def add_card(self, card_name):
         if card_name in self.cards:
@@ -160,8 +168,8 @@ class Deck(object):
         synergy_array = {card_name: 0 for card_name in self.class_deck_combo.keys()}
         for card in self.cards:
             for card2 in self.class_deck_combo:
-                if card2 != 'used_in_decks':
-                    synergy_array[card2] += self.class_deck_combo[card][card2] * self.cards[card]
+                if card2 != 'used_in_decks' and card in self.class_deck_combo[card2]:
+                    synergy_array[card2] += self.class_deck_combo[card2][card] * self.cards[card]
         return synergy_array
 
     def refine_deck(self, max_iteration=30):
