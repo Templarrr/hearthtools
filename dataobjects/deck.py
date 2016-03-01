@@ -184,7 +184,7 @@ class Deck(object):
             card_to_remove, ctr_syn = self.get_worst_card()
             # calculating synergy cost
             self.remove_card(card_to_remove)
-            card_to_add, cta_syn = self.get_constructed_advice()
+            card_to_add, cta_syn, _ = self.get_constructed_advice()
             # checking constrains
             print "Card to add: %s : %f" % (card_to_add, cta_syn)
             print "Card to remove: %s : %f" % (card_to_remove, ctr_syn)
