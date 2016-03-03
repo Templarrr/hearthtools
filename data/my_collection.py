@@ -71,7 +71,7 @@ cards = {
     "Beneath the Grounds": 0,
     "Bestial Wrath": 2,
     "Betrayal": 2,
-    "Big Game Hunter": 1,
+    "Big Game Hunter": 2,
     "Bite": 2,
     "Blackwing Corruptor": 2,
     "Blackwing Technician": 2,
