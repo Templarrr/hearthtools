@@ -411,7 +411,7 @@ cards = {
     "Loot Hoarder": 2,
     "Lord Jaraxxus": 0,
     "Lord of the Arena": 2,
-    "Lorewalker Cho": 0,
+    "Lorewalker Cho": 1,
     "Lost Tallstrider": 2,
     "Lowly Squire": 2,
     "Mad Bomber": 2,
