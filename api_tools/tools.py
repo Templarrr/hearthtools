@@ -73,13 +73,20 @@ def get_card_set_stats(collection_cards):
     return stats
 
 
-def get_all_legendaries():
+def get_cards_by_rarity(rarity):
+    """
+    :param rarity: one from ['Legendary', 'Epic', 'Rare', 'Common', 'Free']
+    """
     cards = get_all_cards_data()
     legendaries = []
     for card in cards:
-        if card.rarity == 'Legendary':
+        if card.rarity == rarity:
             legendaries.append(str(card.name))
     return legendaries
+
+
+def get_all_legendaries():
+    return get_cards_by_rarity('Legendary')
 
 
 def get_class_cards(player_class):
