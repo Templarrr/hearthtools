@@ -522,7 +522,7 @@ cards = {
     "Priestess of Elune": 2,
     "Prophet Velen": 0,
     "Puddlestomper": 2,
-    "Pyroblast": 0,
+    "Pyroblast": 1,
     "Quartermaster": 0,
     "Questing Adventurer": 2,
     "Quick Shot": 2,
