@@ -45,3 +45,11 @@ class Collection(object):
                     candidate = card
                     similarity_score = new_similarity_score
             return candidate
+
+    def apply_mask(self, mask):
+        """
+        Apply additional constraints for collection
+        :param mask: Mask with allowed cards
+        """
+        for card in self.cards:
+            self.cards[card] *= mask.cards[card]
