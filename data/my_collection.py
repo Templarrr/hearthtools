@@ -724,7 +724,7 @@ cards = {
     "Whirling Zap-o-matic": 2,
     "Whirlwind": 2,
     "Wild Growth": 2,
-    "Wild Pyromancer": 1,
+    "Wild Pyromancer": 2,
     "Wildwalker": 2,
     "Wilfred Fizzlebang": 0,
     "Windfury": 2,
